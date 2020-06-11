@@ -1,0 +1,28 @@
+<div class="container-fluid"> 
+  <div class="row">
+    <div class="col-4"> 
+    <h4 class="card-title">Library</h4> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">      
+      <h5 class="card-title">Categories</h5>
+      <input type="text" class="form-control form-group" name="search" id="search" 
+        (change)="onSearch($event.target.value)"/>
+      <button class="btn button" (click)="onCategorySelected(item)"
+      [class.btn-unselected] = "!item.selected" 
+      [class.btn-primary] = "item.selected" 
+      *ngFor = "let item of categoriesFiltered$ | async">{{item.category}}  
+      <div [class.circleIconSelected]="item.selected" 
+            [class.circleIcon]="!item.selected">{{item.count }} </div></button>
+    </div>
+    <div class="col-8">
+      <h5 class="card-title">Applets</h5>
+      <div class="card highlight" *ngFor="let item of appletsFiltered$ | async">        
+        <div class="card-body" >
+         {{item.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
