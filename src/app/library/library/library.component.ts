@@ -38,28 +38,18 @@ export class LibraryComponent {
   categoriesFiltered$ = combineLatest([this.categories$, this.searchEntered$])
     .pipe(
       map(([categories, search]) => {
-        let selected = false;
         const categs = categories.map(category => {
           category.count = this.library.appletsCountByCategory(category.category, search);
-          if (category.selected) {
-            selected = true;
-          }
           return category;
         });
 
         const categsFiltered = categs.filter(c => c.count > 0 || (!search));
-        if (!selected) {
-          categsFiltered[0].selected = true;
-        }
         return categsFiltered;
       })
     );
 
   public onCategorySelected(item) {
     this.categoriesSelectedSubject.next(item.category);
-    const categories = this.library.getCategories();
-    categories.forEach(i => i.selected = false);
-    item.selected = true;
   }
 
   public onSearch(search: string): void {

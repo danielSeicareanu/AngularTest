@@ -10,11 +10,11 @@
       <input type="text" class="form-control form-group" name="search" id="search" 
         (change)="onSearch($event.target.value)"/>
       <button class="btn button" (click)="onCategorySelected(item)"
-      [class.btn-unselected] = "!item.selected" 
-      [class.btn-primary] = "item.selected" 
+      [class.btn-unselected] = "!(item.category === (categorySelected$ | async))" 
+      [class.btn-primary] = "item.category === (categorySelected$ | async)" 
       *ngFor = "let item of categoriesFiltered$ | async">{{item.category}}  
-      <div [class.circleIconSelected]="item.selected" 
-            [class.circleIcon]="!item.selected">{{item.count }} </div></button>
+      <div [class.circleIconSelected]="item.category === (categorySelected$ | async)" 
+            [class.circleIcon]="!(item.category === (categorySelected$ | async))">{{item.count }} </div></button>
     </div>
     <div class="col-8">
       <h5 class="card-title">Applets</h5>
